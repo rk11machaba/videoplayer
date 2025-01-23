@@ -1,50 +1,84 @@
 import { useEvent } from 'expo';
 import { useVideoPlayer, VideoView } from 'expo-video';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 const videoSource =
-  'https://www.youtube.com/watch?v=XofwHRrFKNE&list=PLU_DCVXL8MyN3WecirANwTB3e8Ooy3x4_&ab_channel=Kevinmathscience';
+  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
 export default function VideoScreen() {
-  const player = useVideoPlayer(videoSource, player => {
-    player.loop = true;
-    player.play();
+  // Initialize the video player with the source
+  const player = useVideoPlayer(videoSource, (player) => {
+    player.loop = true; // Enable looping
+    player.play(); // Start playing immediately
   });
 
-  const { isPlaying } = useEvent(player, 'playingChange', { isPlaying: player.playing });
+  // Track whether the video is playing
+  const { isPlaying } = useEvent(player, 'playingChange', {
+    isPlaying: player.playing,
+  });
 
   return (
-    <View style={styles.contentContainer}>
-      <VideoView style={styles.video} player={player} allowsFullscreen allowsPictureInPicture />
-      <View style={styles.controlsContainer}>
-        <Button
-          title={isPlaying ? 'Pause' : 'Play'}
+    <View style={styles.container}>
+      <VideoView
+        style={styles.video}
+        player={player}
+        allowsFullscreen
+        allowsPictureInPicture
+      />
+      <View style={styles.controls}>
+        <TouchableOpacity
+          style={styles.playButton}
           onPress={() => {
             if (isPlaying) {
-              player.pause();
+              player.pause(); // Pause the video
             } else {
-              player.play();
+              player.play(); // Play the video
             }
           }}
-        />
+        >
+          <Text style={styles.playButtonText}>
+            {isPlaying ? 'Pause' : 'Play'}
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  contentContainer: {
+  container: {
     flex: 1,
-    padding: 10,
-    alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 50,
+    alignItems: 'center',
+    padding: 16,
+    backgroundColor: '#f9f9f9', // Light background color for better contrast
   },
   video: {
-    width: 350,
-    height: 275,
+    width: 360, // Slightly adjusted for better responsiveness
+    height: 270,
+    borderRadius: 8, // Add rounded corners to the video
+    backgroundColor: '#000', // Black background for better video contrast
   },
-  controlsContainer: {
-    padding: 10,
+  controls: {
+    marginTop: 16,
+    width: '80%',
+    alignItems: 'center',
+  },
+  playButton: {
+    backgroundColor: '#007BFF', // Blue button background
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 24, // Rounded edges
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5, // For Android shadow
+  },
+  playButtonText: {
+    color: '#fff', // White text color
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
