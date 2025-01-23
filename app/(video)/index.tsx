@@ -1,9 +1,11 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 const index = () => {
   return (
-    <View>index</View>
+    <View>
+        <Text>Video Player</Text>
+    </View>
   )
 }
 
