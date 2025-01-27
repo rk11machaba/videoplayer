@@ -6,27 +6,20 @@ const App = () => {
   const [videoId, setVideoId] = useState('ELssXP1sTC8'); 
   const playerRef = useRef(null);
 
-  const handlePlay = () => {
-    playerRef.current.play();
-  };
-
-  const handlePause = () => {
-    playerRef.current.pause();
-  };
 
   return (
     <View style={styles.container}>
       <YouTubePlayer
         height={300}
-        width="100%"
+        width={100}
         videoId={videoId}
         play={false}
         ref={playerRef}
       />
-      <TouchableOpacity style={styles.button} onPress={handlePlay}>
+      <TouchableOpacity style={styles.button} >
         <Text style={styles.buttonText}>Play</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handlePause}>
+      <TouchableOpacity style={styles.button} >
         <Text style={styles.buttonText}>Pause</Text>
       </TouchableOpacity>
     </View>
