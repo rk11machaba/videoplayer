@@ -16,12 +16,6 @@ const App = () => {
         play={false}
         ref={playerRef}
       />
-      <TouchableOpacity style={styles.button} >
-        <Text style={styles.buttonText}>Play</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} >
-        <Text style={styles.buttonText}>Pause</Text>
-      </TouchableOpacity>
     </View>
   );
 };
