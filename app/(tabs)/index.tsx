@@ -11,7 +11,7 @@ const App = () => {
     <View style={styles.container}>
       <YouTubePlayer
         height={300}
-        width={100}
+        width="100%"
         videoId={videoId}
         play={false}
         ref={playerRef}
